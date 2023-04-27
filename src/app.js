@@ -4,6 +4,7 @@ import cors from 'cors';
 import ConnectDatabase from './database/connect.js';
 import router from './routes/index.routes.js';
 
+
 const app = express();
 
 app.use(cors());
@@ -13,7 +14,7 @@ app.use(router)
 
 const porta = process.env.PORT || 5000;
 
-ConnectDatabase()
+ConnectDatabase();
 app.listen(porta, () => console.log(`
     Servidor iniciado na porta ${porta}
 `));
