@@ -1,6 +1,6 @@
-import sanitizeObjects from "../helpers/sanitizeObjects";
-import { InsertProductSchema } from "../schemas/products.schema";
-import ProductService from "../services/product.service";
+import sanitizeObjects from "../helpers/sanitizeObjects.js";
+import { InsertProductSchema } from "../schemas/products.schema.js";
+import ProductService from "../services/product.service.js";
 
 export const validProduct = async (req, res, next) => {
     const { slug, name, image, category, description, price, rating } = sanitizeObjects(req.body);
