@@ -6,7 +6,6 @@ import { signIn, signUp } from "../controllers/users.controller.js"
 const userRouter = Router()
 
 userRouter.post("/sign-up",validateSchema(signUpSchema), signUp)
-
 userRouter.post("/sign-in",validateSchema(signInSchema), signIn)
 
 export default userRouter
