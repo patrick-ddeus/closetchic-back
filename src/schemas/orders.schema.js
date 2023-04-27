@@ -6,12 +6,12 @@ const orderItemSchema = Joi.object({
     quantity: Joi.number().required(),
     image: Joi.string().required(),
     price: Joi.number().required(),
-    product: Joi.string().required()
+    product: Joi.string().required(),
+    size: Joi.string().valid("p", "m", "g").required()
 });
 
 const orderSchema = Joi.object({
     orderItems: Joi.array().items(orderItemSchema).required(),
-    user: Joi.string().required(),
     totalPrice: Joi.number().required(),
 });
 

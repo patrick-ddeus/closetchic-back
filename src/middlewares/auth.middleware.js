@@ -30,7 +30,7 @@ const authMiddleware = (req, res, next) => {
             const ObjectID = new ObjectId(decode.userId);
             const user = await UserService.findOneService({ _id: ObjectID });
 
-            res.locals.id = user._id;
+            req.id = user._id;
             
             return next();
         } catch (error) {
