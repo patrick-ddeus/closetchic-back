@@ -1,6 +1,6 @@
 import ProductService from '../services/product.service.js';
 
-const findAll = async (req, res) => {
+const findAll = async (_, res) => {
     try {
         const users = await ProductService.findAllProducts();
 
@@ -12,7 +12,6 @@ const findAll = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-
 };
 
 const findOne = async (req, res) => {
