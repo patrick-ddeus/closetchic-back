@@ -5,5 +5,6 @@ const ProductsRouter = Router();
 
 ProductsRouter.get('/', ProductsController.findAll);
 ProductsRouter.get('/products/:slug', ProductsController.findOne);
+ProductsRouter.post('/products', ProductsController.insertOne);
 
 export default ProductsRouter;

@@ -26,7 +26,18 @@ const findOne = async (req, res) => {
     }
 };
 
+const insertOne = async (req, res) => {
+    const product = req.body;
+    try {
+        await ProductService.addOneProduct(product);
+        res.status(201).json({ message: "Ok!" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 export default {
     findAll,
-    findOne
+    findOne,
+    insertOne
 };
