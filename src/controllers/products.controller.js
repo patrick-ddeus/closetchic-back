@@ -18,7 +18,11 @@ const findOne = async (req, res) => {
     const { slug } = req.params;
     try {
         const product = await ProductService.findOneProduct({ slug });
-        if (!product) res.status(404).json({ message: "Produto não encontrado" });
+
+        if (!product) {
+            return res.status(404).json({ message: "Produto não encontrado" });
+        };
+
         res.status(200).json({ message: "Ok!", product });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -29,6 +33,7 @@ const insertOne = async (req, res) => {
     const product = req.body;
     try {
         await ProductService.addOneProduct(product);
+
         res.status(201).json({ message: "Ok!" });
     } catch (err) {
         res.status(500).json({ error: err.message });
