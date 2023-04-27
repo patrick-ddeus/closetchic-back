@@ -7,4 +7,5 @@ export const InsertProductSchema = Joi.object({
     category: Joi.string().required(),
     description: Joi.string().required(),
     rating: Joi.number().required(),
+    price: Joi.number().required()
 });
