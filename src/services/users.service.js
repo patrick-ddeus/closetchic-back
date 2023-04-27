@@ -6,11 +6,11 @@ const collection = database.collection("users");
 
 const createService = (query) => collection.insertOne(query);
 const insertOneService = (query) => collection.insertOne(query);
-const fidnOneService = (query) => collection.findOne(query);
+const findOneService = (query) => collection.findOne(query);
 const generateToken = (id) =>  jwt.sign(id , process.env.SECRET_KEY, { expiresIn: 864000 });
 
 export default {
-    fidnOneService,
+    findOneService,
     insertOneService,
     createService,
     generateToken

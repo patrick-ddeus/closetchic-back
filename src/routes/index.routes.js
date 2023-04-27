@@ -7,5 +7,4 @@ const router = Router()
 router.use(userRouter)
 router.use(ProductsRouter)
 
-
 export default router
