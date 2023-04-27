@@ -1,18 +1,17 @@
 import ProductService from '../services/product.service.js';
 
-const findAll = async (req, res) => {
+const findAll = async (_, res) => {
     try {
-        const users = await ProductService.findAllProducts();
+        const products = await ProductService.findAllProducts();
 
-        if (users.length === 0) {
-            return res.status(404).json({ message: "Theres no users products!" });
+        if (products.length === 0) {
+            return res.status(404).json({ message: "Theres no products products!" });
         }
 
-        res.status(200).json({ message: "Ok!", users });
+        res.status(200).json({ message: "Ok!", products });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-
 };
 
 const findOne = async (req, res) => {
