@@ -5,6 +5,7 @@ import { validProduct } from '../middlewares/products.middlewares.js';
 const ProductsRouter = Router();
 
 ProductsRouter.get('/products', ProductsController.findAll);
+ProductsRouter.get('/products/featured-products', ProductsController.findAllFeatured);
 ProductsRouter.post('/products', validProduct, ProductsController.insertOne);
 ProductsRouter.get('/products/:slug', ProductsController.findOne);
 

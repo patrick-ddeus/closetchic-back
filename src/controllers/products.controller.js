@@ -2,6 +2,9 @@ import ProductService from '../services/product.service.js';
 
 const findAll = async (req, res) => {
     const searchQuery = req.query.q;
+    const page = req.query.page;
+    const limit = 8;
+    const skip = (page - 1) * limit;
 
     try {
         let products = [];
@@ -10,7 +13,7 @@ const findAll = async (req, res) => {
             const cleanSearchQuery = searchQuery.replace("%", " ");
             products = await ProductService.findAllProducts({ name: { $regex: cleanSearchQuery, $options: 'i' } });
         } else {
-            products = await ProductService.findAllProducts();
+            products = await ProductService.findAllProducts({}, limit, skip);
         }
 
         if (products.length === 0) {
@@ -49,8 +52,24 @@ const insertOne = async (req, res) => {
     }
 };
 
+const findAllFeatured = async (req, res) => {
+    try {
+
+        const products = await ProductService.findAllProducts({ rating: { $gt: 4 } }, 4);
+
+        if (products.length === 0) {
+            return res.status(404).json({ message: "Theres no products products!" });
+        }
+
+        res.status(200).json({ message: "Ok!", products });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 export default {
     findAll,
     findOne,
-    insertOne
+    insertOne,
+    findAllFeatured
 };
