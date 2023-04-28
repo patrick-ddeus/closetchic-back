@@ -1,8 +1,17 @@
 import ProductService from '../services/product.service.js';
 
-const findAll = async (_, res) => {
+const findAll = async (req, res) => {
+    const searchQuery = req.query.q;
+
     try {
-        const products = await ProductService.findAllProducts();
+        let products = [];
+
+        if (searchQuery) {
+            const cleanSearchQuery = searchQuery.replace("%", " ");
+            products = await ProductService.findAllProducts({ name: { $regex: cleanSearchQuery, $options: 'i' } });
+        } else {
+            products = await ProductService.findAllProducts();
+        }
 
         if (products.length === 0) {
             return res.status(404).json({ message: "Theres no products products!" });
