@@ -11,16 +11,24 @@ const findAll = async (req, res) => {
 
         if (searchQuery) {
             const cleanSearchQuery = searchQuery.replace("%", " ");
-            products = await ProductService.findAllProducts({ name: { $regex: cleanSearchQuery, $options: 'i' } });
+            products = await ProductService.findAllProducts(
+                {
+                    name: { $regex: cleanSearchQuery, $options: 'i' }
+                },
+                limit,
+                skip
+            );
         } else {
             products = await ProductService.findAllProducts({}, limit, skip);
         }
-
+    
         if (products.length === 0) {
-            return res.status(404).json({ message: "Theres no products products!" });
+            return res.status(404).json({ message: "Não existem produtos cadastrados!" });
         }
 
-        res.status(200).json({ message: "Ok!", products });
+        const count = await ProductService.countProducts()
+
+        res.status(200).json({ message: "Ok!", products, count});
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -58,7 +66,7 @@ const findAllFeatured = async (req, res) => {
         const products = await ProductService.findAllProducts({ rating: { $gt: 4 } }, 4);
 
         if (products.length === 0) {
-            return res.status(404).json({ message: "Theres no products products!" });
+            return res.status(404).json({ message: "Não existem produtos cadastrados!" });
         }
 
         res.status(200).json({ message: "Ok!", products });
@@ -67,9 +75,11 @@ const findAllFeatured = async (req, res) => {
     }
 };
 
+
+
 export default {
     findAll,
     findOne,
     insertOne,
-    findAllFeatured
+    findAllFeatured,
 };

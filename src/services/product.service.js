@@ -4,9 +4,11 @@ const collection = database.collection('products');
 const findAllProducts = (query = {}, limit = 0, skip = 0) => collection.find(query).limit(limit).skip(skip).toArray();
 const findOneProduct = (query) => collection.findOne(query);
 const addOneProduct = (product) => collection.insertOne(product);
+const countProducts = () => collection.countDocuments();
 
 export default {
     findAllProducts,
     findOneProduct,
-    addOneProduct
+    addOneProduct,
+    countProducts
 };
