@@ -11,7 +11,7 @@ const findAll = async (req, res) => {
 
         if (searchQuery) {
             const cleanSearchQuery = searchQuery.replace("%", " ");
-            products = await ProductService.findAllProducts({ name: { $regex: cleanSearchQuery, $options: 'i' } });
+            products = await ProductService.findAllProducts({ name: { $regex: cleanSearchQuery, $options: 'i' } }, limit, skip);
         } else {
             products = await ProductService.findAllProducts({}, limit, skip);
         }
