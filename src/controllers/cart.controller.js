@@ -20,7 +20,7 @@ async function getCart(req, res) {
   try {
     const userCart = await cartService.findCart({ userId });
     if (!userCart) return res.status(200).json({ message: "Ok!", userCart: [] });
-    res.status(200).json({ message: "Ok!", userCart });
+    res.status(200).json({ message: "Ok!", userCart: userCart.products });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
