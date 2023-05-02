@@ -2,11 +2,11 @@ import orderSchema from "../schemas/orders.schema.js";
 import { ObjectId } from "mongodb";
 
 export const validOrder = (req, res, next) => {
-    const { orderItems, totalPrice } = req.body;
-    const user = req.id
+    const { orderItems, shippingAddress, totalPrice, paymentMethod, tel, isPaid, paidAt } = req.body;
+    const user = req.id;
 
     const { error } = orderSchema.validate(
-        { orderItems, totalPrice },
+        { orderItems, shippingAddress, totalPrice, paymentMethod, tel, isPaid, paidAt },
         { abortEarly: false }
     );
 
@@ -20,7 +20,16 @@ export const validOrder = (req, res, next) => {
     });
 
     const transformedUser = new ObjectId(user);
-    
-    req.locals = { orderItems: transformedOrderItems, user: transformedUser, totalPrice };
+
+    req.locals = {
+        orderItems: transformedOrderItems,
+        user: transformedUser,
+        shippingAddress,
+        totalPrice,
+        paymentMethod,
+        tel,
+        isPaid,
+        paidAt
+    };
     return next();
 };

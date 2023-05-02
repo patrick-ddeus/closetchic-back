@@ -1,5 +1,19 @@
 import Joi from "joi";
 
+const addressSchema = Joi.object({
+    district: Joi.string().required(),
+    city: Joi.string().required(),
+    street: Joi.string().required(),
+    number: Joi.number().required(),
+    complement: Joi.string()
+});
+
+const shippingSchema = Joi.object({
+    fullName: Joi.string().required(),
+    address: addressSchema,
+    postalCode: Joi.string().required(),
+});
+
 const orderItemSchema = Joi.object({
     slug: Joi.string().required(),
     name: Joi.string().required(),
@@ -11,16 +25,13 @@ const orderItemSchema = Joi.object({
 });
 
 const orderSchema = Joi.object({
-    shippingAddress: Joi.object({
-        fullName: Joi.string().required(),
-        address: Joi.string().required(),
-        city: Joi.string().required(),
-        postalCode: Joi.string().required(),
-        country: Joi.string().required(),
-    }).required(),
+    shippingAddress: shippingSchema,
     orderItems: Joi.array().items(orderItemSchema).required(),
     totalPrice: Joi.number().required(),
     paymentMethod: Joi.string().required(),
+    tel: Joi.string(),
+    isPaid: Joi.boolean(),
+    paidAt: Joi.date()
 });
 
 export default orderSchema;

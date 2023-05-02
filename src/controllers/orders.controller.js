@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 
 const createOrder = async (req, res) => {
     const order = req.locals;
-
+    console.log(order)
     try {
         await OrdersService.createOrderService(order);
 
