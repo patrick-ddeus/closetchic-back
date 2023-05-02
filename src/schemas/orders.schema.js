@@ -5,7 +5,7 @@ const addressSchema = Joi.object({
     city: Joi.string().required(),
     street: Joi.string().required(),
     number: Joi.number().required(),
-    complement: Joi.string()
+    complement: Joi.string().allow("").optional()
 });
 
 const shippingSchema = Joi.object({
@@ -28,8 +28,10 @@ const orderSchema = Joi.object({
     shippingAddress: shippingSchema,
     orderItems: Joi.array().items(orderItemSchema).required(),
     totalPrice: Joi.number().required(),
+    priceItems: Joi.number().required(),
     paymentMethod: Joi.string().required(),
-    tel: Joi.string(),
+    tel: Joi.string().allow("").optional(),
+    email: Joi.string().email().required(),
     isPaid: Joi.boolean(),
     paidAt: Joi.date()
 });
